@@ -7,20 +7,62 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button onclick="a()" id="1"><br></button><button onclick="a()" id="2"><br></button><button onclick="a()" id="3"><br></button><br>
-    <button onclick="a()" id="4"><br></button><button onclick="a()" id="5"><br></button><button onclick="a()"id="6"><br></button><br>
-    <button onclick="a()" id="7"><br></button><button onclick="a()" id="8"><br></button><button onclick="a()"id="9"><br></button>
+    <header>
+        <h1>
+            just some games
+        </h1>
+        <br>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="mincrafat.html">Mincrafat</a>
+        <a href="tic tato.html">Tic Tato</a>
+        <a href="no,geust.html">No.geust</a>
+    </nav>    
+    <div class="container">
+        <div id="board"></div>
+        <h2 id="status"></h2>
+    </div>
     <script>
-        var A=1
-        var b=2%A
-        var c=null
-        function a() 
-        {
-        if(b==0)
-        {
-            
+        let currentPlayer = 'δ';
+        const board = Array(9).fill('');
+        const boardEl = document.getElementById('board');
+        const statusEl = document.getElementById('status');
+
+        function checkWinner() {
+            const combos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+            for (let combo of combos) {
+                const [a, b, c] = combo;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return board[a];
+                }
+            }
+            return board.includes('') ? null : 'Draw';
         }
+
+        function handleClick(index, cell) {
+            if (board[index] || checkWinner()) return;
+            board[index] = currentPlayer;
+            cell.textContent = currentPlayer;
+            const winner = checkWinner();
+            if (winner) {
+                statusEl.textContent = winner === 'Draw' ? "It's a Draw!" : `${winner} Wins!`;
+            } else {
+                currentPlayer = currentPlayer === 'δ' ? 'π' : 'δ';
+            }
         }
-   </script>
+
+        board.forEach((_, i) => {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.addEventListener('click', () => handleClick(i, cell));
+            boardEl.appendChild(cell);
+        });
+    </script>
+    <footer>
+        <p>
+            &copy;Naman 2025 all rights reserved
+        </p>
+    </footer>
 </body>
 </html>
