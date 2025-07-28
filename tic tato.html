@@ -24,7 +24,7 @@
         <h2 id="status"></h2>
     </div>
     <script>
-        let currentPlayer = 'δ';
+        let currentPlayer = '🐶';
         const board = Array(9).fill('');
         const boardEl = document.getElementById('board');
         const statusEl = document.getElementById('status');
@@ -48,7 +48,7 @@
             if (winner) {
                 statusEl.textContent = winner === 'Draw' ? "It's a Draw!" : `${winner} Wins!`;
             } else {
-                currentPlayer = currentPlayer === 'δ' ? 'π' : 'δ';
+                currentPlayer = currentPlayer === '🐶' ? '😺' : '🐶';
             }
         }
 
